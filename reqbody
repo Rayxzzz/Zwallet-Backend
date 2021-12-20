@@ -1,0 +1,24 @@
+ register   {
+        user_id : idUser,
+        phone : phone,
+        name : name,
+        email : email,
+        password : password,
+        pin : pin
+    }
+
+
+topup {
+        "balance": 240000
+    }
+
+update profile {
+        "name" : "RIDHO",
+        "password" : 123111
+    }
+
+transaction {
+        "receiver": 335,
+        "amount": 280000
+}
+
