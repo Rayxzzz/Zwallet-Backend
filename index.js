@@ -6,6 +6,7 @@ const adminRoute = require('./src/route/admin')
 const userRoute = require('./src/route/user')
 const authRoute = require('./src/route/auth')
 const app = express()
+const cors = require('cors')
 const morgan = require('morgan')
 
 const PORT = process.env.PORT || 1234
@@ -13,6 +14,7 @@ const PORT = process.env.PORT || 1234
 
 // middleware
 app.use(express.json())
+app.use(cors())
 
 // middleware-logging
 app.use(morgan('dev'))
