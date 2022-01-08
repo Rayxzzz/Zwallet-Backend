@@ -29,7 +29,7 @@ const transferDetail = async (req, res, next) => {
   } else {
     const createInvoice = await transferModel.createTransfer(data, balance)
     console.log(createInvoice)
-    responsStandart.respons(res, null, 401, `confirm at this in invoice ${data.invoice}`)
+    responsStandart.respons(res, null, 200, `confirm at this in invoice ${data.invoice}`)
   }
 }
 
