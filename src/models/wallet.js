@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 const { promise } = require('../config/database')
 const connection = require('../config/database')
 
