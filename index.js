@@ -20,7 +20,7 @@ app.use(cors())
 app.use(morgan('dev'))
 
 // (admin)
-app.use('/admin', helperCommon.validation, adminRoute)
+app.use('/admin', adminRoute)
 
 // portal
 app.use('/auth', authRoute)

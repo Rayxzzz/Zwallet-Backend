@@ -127,10 +127,22 @@ const login = async(req, res, next) => {
     }
 }
 
+const userlist2 = async(req, res, next) => {
+  try {
+    const result = await userModel.readAllUser2()
+    // console.log(result)
+    standartRespons.respons(res, result, 200, null)   
+  } catch (error) {
+    console.log(error)
+    const err = new createError.InternalServerError()
+    next(err)
+  }
+}
+
 module.exports = {
   userList,
   userBalance,
-  // userList2,
+  userlist2,
   changeProfile,
   seeProfile,
   registerUser,
