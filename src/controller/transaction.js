@@ -89,9 +89,17 @@ const cancelTransfer = async (req, res) => {
   responsStandart.respons(res, null, 200, `transfer ${invoice} canceled`)
 }
 
+const detailTransfer = async (req, res) => {
+  const invoice = req.params.invoice
+  const result = await transferModel.seeInvoice(invoice)
+  console.log(result)
+  responsStandart.respons(res, result, 200, `transfer ${invoice} canceled`)
+}
+
 module.exports = {
   transferDetail,
   confirm,
   history,
+  detailTransfer,
   cancelTransfer
 }

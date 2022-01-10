@@ -102,6 +102,17 @@ const deleteInvoice = (invoice) => {
   })
 }
 
+const seeInvoice = (invoice) => {
+  return new Promise((resolve, reject) => {
+    connection.query(`SELECT * FROM transaction WHERE invoice = ${invoice}`, (error, result) => {
+      if (error) {
+        reject(error)
+      } else {
+        resolve(result)
+      }
+    })
+  })
+}
 module.exports = {
   seeWalletDetail,
   createTransfer,
@@ -110,5 +121,6 @@ module.exports = {
   updateWalletT,
   updatestatus,
   getHistory,
+  seeInvoice,
   deleteInvoice
 }

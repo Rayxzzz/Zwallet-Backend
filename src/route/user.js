@@ -13,6 +13,8 @@ route.post('/:id/transaction', validation.checkUser, transController.transferDet
 route.put('/:id/transaction/:invoice', validation.checkUser, transController.confirm) // confirm transfer
 route.delete('/:id/transaction/:invoice/c', validation.checkUser, transController.cancelTransfer) // cancel transfer
 route.get('/:id/transaction/history', validation.checkUser, transController.history) // see history transaction
+route.get('/:id/transaction/:invoice', validation.checkUser, transController.detailTransfer) // see transfer
+
 
 module.exports = route
 
