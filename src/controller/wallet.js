@@ -6,7 +6,7 @@ const topUp = async (req, res, next) => {
   const idUser = req.params.id
   const balance = req.body.balance
   const data = {
-    balance: balance
+    balance: data.balance + balance
   }
 
   // eslint-disable-next-line no-unused-vars
