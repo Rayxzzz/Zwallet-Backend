@@ -71,18 +71,59 @@ const seeProfile = async (req, res, next) => {
   }
 }
 
-const changeProfile = async (req, res, next) => {
-  const idUser = req.params.id
-  const { name, password } = req.body
-  const hashPass = await bcrypt.hash(password, 10)
-  const data = {
-    name: name,
-    password: hashPass
+const changeName = async (req, res, next) => {
+  
+  try {
+    const idUser = req.params.id
+    const { name } = req.body
+    // const hashPass = await bcrypt.hash(password, 10)
+    const data = {
+      name: name
+    }
+    const result = await userModel.updateProfile(data, idUser)
+    res.json({
+      message: 'profile has been update'
+    })
+    
+  } catch (error) {
+    next(createError.InternalServerError)
   }
-  const result = await userModel.updateProfile(data, idUser)
-  res.json({
-    message: 'profile has been update'
-  })
+}
+
+const changePin = async (req, res, next) => {
+  
+  try {
+    const idUser = req.params.id
+    const { pin } = req.body
+    const data = {
+      pin: pin 
+    }
+    const result = await userModel.updateProfile(data, idUser)
+    res.json({
+      message: 'pin has been update'
+    })
+    
+  } catch (error) {
+    next(createError.InternalServerError)
+  }
+}
+
+const changePhone = async (req, res, next) => {
+  
+  try {
+    const idUser = req.params.id
+    const { phone } = req.body
+    const data = {
+      phone: phone
+    }
+    const result = await userModel.updateProfile(data, idUser)
+    res.json({
+      message: 'phone has been update'
+    })
+    
+  } catch (error) {
+    next(createError.InternalServerError)
+  }
 }
 
 const registerUser = async (req, res, next) => {
@@ -143,7 +184,9 @@ module.exports = {
   userList,
   userBalance,
   userlist2,
-  changeProfile,
+  changeName,
+  changePin,
+  changePhone,
   seeProfile,
   registerUser,
   deleteU,
