@@ -154,8 +154,8 @@ const registerUser = async (req, res, next) => {
 
 
 const login = async(req, res, next) => {
-    const { id , password } = req.body
-    const login = await userModel.readProfile(id)
+    const { email , password } = req.body
+    const login = await userModel.readProfile2(email)
     if(login == 0){
         next(createError(401, 'user not registered'))
     }

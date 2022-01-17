@@ -99,6 +99,20 @@ const readProfile = (idUser) => {
   })
 }
 
+const readProfile2 = (idUser) => {
+  return new Promise((resolve, reject) => {
+    connection.query(`select * from user where Email = "${idUser}"`, (error, result) => {
+      if (error) {
+        console.log(error)
+        reject('data error')
+      } else {
+        // console.log(result)
+        resolve(result)
+      }
+    })
+  })
+}
+
 const updateProfile = (data, idUser) => {
   return new Promise((resolve, reject) => {
     connection.query('UPDATE user SET ? WHERE user_id = ?', [data, idUser], (error, result) => {
@@ -153,6 +167,7 @@ module.exports = {
   readAllUser2,
   readBalance,
   readProfile,
+  readProfile2,
   updateProfile,
   readAllbalance,
   createUser,

@@ -8,8 +8,8 @@ const route = express.Router()
 route.get('/:id/balance', validation.checkUser, userController.userBalance) //check balance
 route.get('/:id', validation.checkUser, userController.seeProfile) //see profile
 route.put('/:id/profile', validation.checkUser, userController.changeName) //change profile
-route.put('/:id/profile/pin', validation.checkUser, userController.changePin) //change profile
-route.put('/:id/profile/phone', validation.checkUser, userController.changePhone) //change profile
+route.put('/:id/profile/pin', validation.checkUser, userController.changePin) //change pin
+route.put('/:id/profile/phone', validation.checkUser, userController.changePhone) //change phone
 route.put('/:id/top-up', validation.checkUser, walletController.topUp) // top up wallet
 route.post('/:id/transaction', validation.checkUser, transController.transferDetail) // make invoice
 route.put('/:id/transaction/:invoice', validation.checkUser, transController.confirm) // confirm transfer
