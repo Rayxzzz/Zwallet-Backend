@@ -1,6 +1,5 @@
 require('dotenv').config()
 const express = require('express')
-// const userController = require('./src/controller/user')
 const helperCommon = require('./src/helper/common')
 const adminRoute = require('./src/route/admin')
 const userRoute = require('./src/route/user')
@@ -28,6 +27,8 @@ app.use('/auth', authRoute)
 // (user)
 app.use('/user', userRoute)
 
+app.use('/file', express.static('./uploads'))
+
 // transaction
 
 // history
@@ -41,7 +42,6 @@ app.use(helperCommon.url)
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   console.log(err)
-  // res.status(err.status).send(err.message)
   helperCommon.respons(res, null, err.status, err.message)
 })
 

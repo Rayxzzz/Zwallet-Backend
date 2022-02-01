@@ -1,6 +1,6 @@
 const createError = require("http-errors");
 const userModel = require('../models/user')
-
+const nodemailer = require('nodemailer')
 // eslint-disable-next-line no-unused-vars
 const url = (req, res, next) => {
   res.status(404)
@@ -45,11 +45,33 @@ const validation = (req, res, next) => {
   }
 
 
+const sendEmail = async (toEmail) => {
+  let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true, // true for 465, false for other ports
+    auth: {
+      user: process.env.EMAIL_NODE, // generated ethereal user
+      pass: process.env.PASS_NODE, // generated ethereal password
+    },
+  });
+  let info = await transporter.sendMail({
+    from: `"ADMIN Zwallet" <${process.env.EMAIL_NODE}>`, // sender address
+    to: toEmail, // list of receivers
+    subject: "verify your Email", // Subject line
+    text: "verify your email for full access", // plain text body
+    html: "<b>verify</b>", // html body
+  });
+}
+
+
+
 module.exports = { 
   url,
   respons,
   validation,
-  checkUser
+  checkUser,
+  sendEmail
 }
 
 
