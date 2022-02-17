@@ -4,7 +4,7 @@ const createError = require('http-errors')
 const standartRespons = require('../helper/common')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const client = require('../config/redis')
+// const client = require('../config/redis')
 
 const userList = async (req, res, next) => {
   try {
@@ -62,7 +62,7 @@ const seeProfile = async (req, res, next) => {
   const userId = req.params.id
   try {
     const result = await userModel.readProfile(userId)
-    await client.setEx(`profile/${userId}`, 60 * 60, JSON.stringify(result))
+    // await client.setEx(`profile/${userId}`, 60 * 60, JSON.stringify(result))
     if (result == 0) {
       next(createError(401, 'user not found'))
     } else {
