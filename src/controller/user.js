@@ -146,7 +146,8 @@ const registerUser = async (req, res, next) => {
      email: email,
      password: hashPass,
      pin: pin,
-     verified: 'no'
+     verified: 'no',
+
    }
    standartRespons.sendEmail(email)
    const test = await bcrypt.compare(password, hashPass)
@@ -176,6 +177,7 @@ const login = async(req, res, next) => {
     if(login == 0){
         next(createError(401, 'user not registered'))
     }
+    console.log(login)
     const hashPass = login[0].password 
     const passHash = await bcrypt.compare(password, hashPass)
     const secretKey = process.env.SECRET_KEY_JWT
