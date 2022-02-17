@@ -174,7 +174,7 @@ const registerUser = async (req, res, next) => {
 const login = async(req, res, next) => {
     const { email , password } = req.body
     const login = await userModel.readProfile2(email)
-    if(login == 0){
+    if(login == []){
         next(createError(401, 'user not registered'))
     }
     console.log(login)
