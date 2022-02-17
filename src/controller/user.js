@@ -131,31 +131,42 @@ const changePhone = async (req, res, next) => {
 }
 
 const registerUser = async (req, res, next) => {
-  const { phone, name, email, password, pin } = req.body
-  const idUser = Math.floor(Math.random() * 999)
-  const hashPass = await bcrypt.hash(password, 10)
-  const emailList = await userModel.readAllUser2()
-  const emailList2 = emailList.map(email => email.Email)
-  console.log(emailList)
-  const data = {
-    user_id: idUser,
-    phone: phone,
-    name: name,
-    email: email,
-    password: hashPass,
-    pin: pin,
-    verified: 'no'
-  }
-  standartRespons.sendEmail(email)
-  const test = await bcrypt.compare(password, hashPass)
-  console.log(test)
-  const result = await userModel.createUser(data)
-  const wallet = await userModel.createWallet(data.user_id)
-  if(emailList2.includes(email)){
-      next(createError(401,'this is email already registered'))
-  } else {
-      standartRespons.respons(res,`your id is ${data.user_id}`, 200, 'Register success' )
-  }
+ 
+ try {
+   const { phone, name, email, password, pin } = req.body
+   const idUser = Math.floor(Math.random() * 999)
+   const hashPass = await bcrypt.hash(password, 10)
+   const emailList = await userModel.readAllUser2()
+   const emailList2 = emailList.map(email => email.Email)
+   console.log(emailList)
+   const data = {
+     user_id: idUser,
+     phone: phone,
+     name: name,
+     email: email,
+     password: hashPass,
+     pin: pin,
+     verified: 'no'
+   }
+   standartRespons.sendEmail(email)
+   const test = await bcrypt.compare(password, hashPass)
+   console.log(test)
+   const result = await userModel.createUser(data)
+   const wallet = await userModel.createWallet(data.user_id)
+   if(emailList2.includes(email)){
+       next(createError(401,'this is email already registered'))
+   } else {
+       standartRespons.respons(res,`your id is ${data.user_id}`, 200, 'Register success' )
+   }
+    
+  } 
+ 
+ catch (error) {
+  console.log(error)
+  const err = new createError.InternalServerError()
+  next(err)
+ }
+ 
 }
 
 
