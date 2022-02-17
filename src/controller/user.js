@@ -175,7 +175,7 @@ const login = async(req, res, next) => {
     const { email , password } = req.body
     const login = await userModel.readProfile2(email)
     if(login == []){
-        next(createError(401, 'user not registered'))
+        return next(createError(401, 'user not registered'))
     }
     console.log(login)
     const hashPass = login[0].password 
