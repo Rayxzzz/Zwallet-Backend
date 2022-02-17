@@ -10,7 +10,7 @@ const verifyToken = (req, res, next) => {
     }
     try {
         const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT) 
-        console.log('hasil token', decoded)
+        // console.log('hasil token', decoded)
         req.email = decoded.email
         req.role = decoded.role
     } catch (error) {
@@ -19,11 +19,11 @@ const verifyToken = (req, res, next) => {
         } else if(error.name === 'TokenExpiredError'){
             return next(createError(400, 'Token Expired'))
         } else{
-            console.log(error.name)   
+            // console.log(error.name)   
             return next(createError(400, 'Token not active'))
         }
     }
-    console.log(token)
+    // console.log(token)
     next()
 }
 

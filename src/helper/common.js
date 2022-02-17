@@ -33,7 +33,7 @@ const validation = (req, res, next) => {
     const userId = req.params.id
     try {
       const result = await userModel.readProfile(userId)
-      console.log(result)
+      // console.log(result)
       if (result == 0) {
         next(createError(401, 'user not found'))
       } else {
@@ -63,6 +63,7 @@ const sendEmail = async (toEmail) => {
     html: "<b>verify</b>", // html body
   });
 }
+
 
 
 

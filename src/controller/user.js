@@ -31,7 +31,7 @@ const userList = async (req, res, next) => {
         totalPage: Math.ceil(total / limit)})
     }
   } catch (error) {
-    console.log(error)
+    // console.log(error)
     const err = new createError.InternalServerError()
     next(err)
   }
@@ -66,7 +66,7 @@ const seeProfile = async (req, res, next) => {
     if (result == 0) {
       next(createError(401, 'user not found'))
     } else {
-      res.send(result)
+      standartRespons.respons(res, result, 200, null)  
     }
   } catch (error) {
     next(createError.InternalServerError)
@@ -181,7 +181,7 @@ const login = async(req, res, next) => {
     const token = jwt.sign(payload, secretKey, verifyOption)
     login[0].token = token
     if(passHash){
-        console.log(login)
+        // console.log(login[0].token)
         standartRespons.respons(res, login, 200, `welcome back ${login[0].Name}`)
     } else{
         next(createError(401, 'wrong password'))

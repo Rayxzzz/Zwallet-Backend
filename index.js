@@ -7,6 +7,8 @@ const authRoute = require('./src/route/auth')
 const app = express()
 const cors = require('cors')
 const morgan = require('morgan')
+const bodyParser = require('body-parser');
+
 
 const PORT = process.env.PORT || 1234
 
@@ -49,3 +51,5 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log('server running....')
 })
+
+module.exports = app

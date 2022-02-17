@@ -9,7 +9,6 @@ const route = express.Router()
 const errorUpload = upload.single('photo')
 const multer = require('multer')
 const createError = require('http-errors')
-const { hitCacheProductId } = require('../helper/redis')
 
 route.get('/:id/balance', verifyToken, validation.checkUser, userController.userBalance) //check balance
 route.get('/:id', verifyToken, validation.checkUser, userController.seeProfile) //see profile
