@@ -1,6 +1,9 @@
 const createError = require("http-errors");
 const userModel = require('../models/user')
 const nodemailer = require('nodemailer')
+const upload = require('../helper/upload')
+const errorUpload = upload.single('photo')
+const multer = require('multer')
 // eslint-disable-next-line no-unused-vars
 const url = (req, res, next) => {
   res.status(404)
@@ -64,7 +67,19 @@ const sendEmail = async (toEmail) => {
   });
 }
 
-
+const error =  (req, res, next) => {
+  errorUpload(req, res, function (err) {
+      if (err instanceof multer.MulterError) {
+          return next(createError(402, 'maximum file is 1 mb'))
+          // A Multer error occurred when uploading.
+      } else if (err) {
+          console.log(err)
+          return next(createError(400, 'file not allowed'))
+          // An unknown error occurred when uploading.
+      }
+      next()
+      // Everything went fine.
+  })}
 
 
 module.exports = { 
@@ -72,7 +87,8 @@ module.exports = {
   respons,
   validation,
   checkUser,
-  sendEmail
+  sendEmail,
+  error
 }
 
 

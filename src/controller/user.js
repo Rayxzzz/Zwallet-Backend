@@ -146,7 +146,8 @@ const registerUser = async (req, res, next) => {
      email: email,
      password: hashPass,
      pin: pin,
-     verified: 'no',
+     photo: 'https://i.pinimg.com/236x/7f/39/f0/7f39f0ad4dd6b777ab72bc7dc3b91958.jpg',
+     verified: 'no'
 
    }
    standartRespons.sendEmail(email)
