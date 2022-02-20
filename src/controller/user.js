@@ -81,7 +81,7 @@ const changeName = async (req, res, next) => {
     const photo = req.file.filename
     // const hashPass = await bcrypt.hash(password, 10)
     const data = {
-      name: name,
+      Name: name,
       photo : `https://zwallet-ridho.herokuapp.com/file/${photo}`
     }
     const result = await userModel.updateProfile(data, idUser)
