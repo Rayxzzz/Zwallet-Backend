@@ -85,9 +85,7 @@ const changeName = async (req, res, next) => {
       photo : `https://zwallet-ridho.herokuapp.com/file/${photo}`
     }
     const result = await userModel.updateProfile(data, idUser)
-    res.json({
-      message: 'profile has been update'
-    })
+    standartRespons.respons(res, data, 200, 'prodile has been update')  
     
   } catch (error) {
     next(createError.InternalServerError)
