@@ -8,9 +8,39 @@ const app = express()
 const cors = require('cors')
 const morgan = require('morgan')
 const bodyParser = require('body-parser');
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+const httpServer = createServer(app);
+const io = new Server(httpServer, { 
+  cors: {
+    origin: "http://localhost:3000/",
+    methods: ["GET", "POST"]
+  }
+ });
 
 
 const PORT = process.env.PORT || 1234
+
+// socket
+io.on('connection', (socket) => {
+  socket.on('userOnline', (data)=>{
+    console.log(`user ${data.user_id} online`)
+    socket.join(data.user_id)
+  })
+
+  socket.on('disconnect', ()=> {
+    console.log('user left');
+  })
+
+  socket.emit('notification', "hello welcome to zwallet")
+  
+
+
+  socket.on('sendMoney',(data)=>{
+    socket.to(data.receiver).emit('sendMoney', data)
+  })
+
+})
 
 
 // middleware
@@ -48,8 +78,8 @@ app.use((err, req, res, next) => {
 })
 
 // listen
-app.listen(PORT, () => {
-  console.log('server running....')
+httpServer.listen(PORT, () => {
+  console.log(`server running on port ${PORT}`)
 })
 
 module.exports = app

@@ -32,21 +32,6 @@ const validation = (req, res, next) => {
   return next(createError(402,'this admin privilage'))
 }
 
-  const checkUser = async (req, res, next) => {
-    const userId = req.params.id
-    try {
-      const result = await userModel.readProfile(userId)
-      // console.log(result)
-      if (result == 0) {
-        next(createError(401, 'user not found'))
-      } else {
-        next()
-      }
-    } catch (error) {
-      next(createError.InternalServerError)
-    }
-  }
-
 
 const sendEmail = async (toEmail) => {
   let transporter = nodemailer.createTransport({
@@ -86,7 +71,6 @@ module.exports = {
   url,
   respons,
   validation,
-  checkUser,
   sendEmail,
   error
 }

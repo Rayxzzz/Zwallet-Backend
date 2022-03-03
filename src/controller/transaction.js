@@ -3,21 +3,25 @@ const transferModel = require('../models/transaction')
 const userModel = require('../models/user')
 const responsStandart = require('../helper/common')
 const createError = require('http-errors')
+const jwt = require('jsonwebtoken')
+
 
 const transferDetail = async (req, res, next) => {
-  const idUser = req.params.id
-  const result = await transferModel.seeWalletDetail(idUser)
+  const token = req.headers.authorization.split(' ')[1]
+  const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT)
+  const result = await transferModel.seeWalletDetail(decoded.userid)
   const user = await userModel.readAllUser2()
   const balance = result[0].balance
   const invoice = Math.floor(Math.random() * 99999)
   const { amount, receiver } = req.body
   const data = {
     invoice: invoice,
-    id_sender: idUser,
+    id_sender: decoded.userid,
     receiver: receiver,
     amount: amount,
     status: 'pending',
-    date: new Date()
+    date: new Date(),
+    photo_sender: decoded.photo
   }
   console.log(data)
   const user_id = user.map(user => user.user_id)
@@ -34,8 +38,10 @@ const transferDetail = async (req, res, next) => {
 }
 
 const confirm = async (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1]
+  const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT)
   const invoice = req.params.invoice
-  const idUser = req.params.id
+  const idUser = decoded.userid
   const pin = req.body.pin
   const userData = await userModel.readAllUser2()
   const user = userData.find(user => user.user_id == idUser)
@@ -69,22 +75,34 @@ const confirm = async (req, res, next) => {
 }
 
 const history = async (req, res, next) => {
-  const idUser = req.params.id
+  const token = req.headers.authorization.split(' ')[1]
+  const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT)
+  const idUser = decoded.userid
   const result = await transferModel.getHistory(idUser)
   for (let i = 0; i < result.length; ++i) {
-    console.log(result[i] = {
+    result[i] = {
       invoice: result[i].invoice,
       receiver: result[i].receiver,
       amount: result[i].amount,
       date: result[i].date.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }),
       status: result[i].status
-    })
+    }
   }
   responsStandart.respons(res, result, 200, `you have ${result.length} transaction this far`)
 }
 
+const historySuccess = async (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1]
+  const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT)
+  const idUser = decoded.userid
+  const result = await transferModel.getHistorySuccess(idUser)
+  responsStandart.respons(res, result, 200, `you have ${result.length} transaction this far`)
+}
+
 const cancelTransfer = async (req, res) => {
-  const invoice = req.params.invoice
+  const token = req.headers.authorization.split(' ')[1]
+  const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT)
+  const invoice = decoded.userid
   const result = await transferModel.deleteInvoice(invoice)
   responsStandart.respons(res, null, 200, `transfer ${invoice} canceled`)
 }
@@ -93,13 +111,14 @@ const detailTransfer = async (req, res) => {
   const invoice = req.params.invoice
   const result = await transferModel.seeInvoice(invoice)
   console.log(result)
-  responsStandart.respons(res, result, 200, `transfer ${invoice} canceled`)
+  responsStandart.respons(res, result, 200, `test`)
 }
 
 module.exports = {
   transferDetail,
   confirm,
   history,
+  historySuccess,
   detailTransfer,
   cancelTransfer
 }

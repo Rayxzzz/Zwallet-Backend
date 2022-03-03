@@ -15,6 +15,7 @@ const verifyToken = (req, res, next) => {
         req.role = decoded.role
     } catch (error) {
         if(error.name === 'JsonWebTokenError'){
+            console.log(error)
             return next(createError(403, 'Token invalid'))
         } else if(error.name === 'TokenExpiredError'){
             return next(createError(400, 'Token Expired'))
