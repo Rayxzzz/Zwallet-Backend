@@ -67,8 +67,10 @@ const confirm = async (req, res, next) => {
     const updateSender = await transferModel.updateWalletT(dataS, idUser)
     const updateReceiver = await transferModel.updateWalletT(dataR, idReceiver)
     const success = await transferModel.updatestatus(invoice)
-    responsStandart.respons(res, null, 200, 'transfer success')
+    return responsStandart.respons(res, null, 200, 'transfer success')
   } else{
+    console.log(pin)
+    console.log(pinUser)
     next(createError(402, 'wrong pin'))
   }
   
