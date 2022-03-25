@@ -104,7 +104,7 @@ const changeName = async (req, res, next) => {
     // const hashPass = await bcrypt.hash(password, 10)
     const data = {
       Name: name,
-      photo: `http://localhost:1234/file/${photo}`
+      photo: `https://zwallet-ridho.herokuapp.com/file/${photo}`
     }
     if (name == '') {
       const login = await userModel.readProfile2(decoded.email)
