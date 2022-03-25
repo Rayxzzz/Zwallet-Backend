@@ -188,7 +188,7 @@ const registerUser = async (req, res, next) => {
     }
     // standartRespons.sendEmail(email)
     const test = await bcrypt.compare(password, hashPass)
-    console.log(test)
+    // console.log(test)
     const result = await userModel.createUser(data)
     const wallet = await userModel.createWallet(data.user_id)
     if (emailList2.includes(email)) {
