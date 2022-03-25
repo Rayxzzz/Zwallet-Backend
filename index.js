@@ -24,6 +24,7 @@ const PORT = process.env.PORT || 1234
 // socket
 io.on('connection', (socket) => {
   socket.on('userOnline', (data)=>{
+    console.log('hai')
     console.log(`user ${data.user_id} online`)
     socket.join(data.user_id)
   })
@@ -37,6 +38,8 @@ io.on('connection', (socket) => {
 
 
   socket.on('sendMoney',(data)=>{
+    // socket.join(data.receiver)
+    socket.in(data.sender).emit('sendMoney', data)
     socket.to(data.receiver).emit('sendMoney', data)
   })
 

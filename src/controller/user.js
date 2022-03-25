@@ -186,7 +186,7 @@ const registerUser = async (req, res, next) => {
       verified: 'no'
 
     }
-    standartRespons.sendEmail(email)
+    // standartRespons.sendEmail(email)
     const test = await bcrypt.compare(password, hashPass)
     console.log(test)
     const result = await userModel.createUser(data)
