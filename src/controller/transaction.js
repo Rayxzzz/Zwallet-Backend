@@ -87,7 +87,9 @@ const history = async (req, res, next) => {
       receiver: result[i].receiver,
       amount: result[i].amount,
       date: result[i].date.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }),
-      status: result[i].status
+      status: result[i].status,
+      type: result[i].type,
+      photo: result[i].photo_sender
     }
   }
   responsStandart.respons(res, result, 200, `you have ${result.length} transaction this far`)
