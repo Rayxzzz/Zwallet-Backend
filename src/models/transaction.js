@@ -80,7 +80,7 @@ const updatestatus = (invoice) => {
 
 const getHistory = (id) => {
   return new Promise((resolve, reject) => {
-    connection.query(`select invoice,receiver,amount,date,status from transaction where id_sender = ${id} order by date desc`, (error, results) => {
+    connection.query(`select * from transaction where id_sender = ${id} order by date desc`, (error, results) => {
       if (error) {
         reject(error)
       } else {
