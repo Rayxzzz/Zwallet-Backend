@@ -93,6 +93,7 @@ const history = async (req, res, next) => {
     }
   }
   console.log(result[0].type)
+  console.log(result[0].photo_sender)
   responsStandart.respons(res, result, 200, `you have ${result.length} transaction this far`)
 }
 
