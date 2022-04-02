@@ -85,6 +85,7 @@ const history = async (req, res, next) => {
     result[i] = {
       invoice: result[i].invoice,
       receiver: result[i].receiver,
+      name: result[i].receiver_name,
       amount: result[i].amount,
       date: result[i].date.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }),
       status: result[i].status,
