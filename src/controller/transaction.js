@@ -93,7 +93,7 @@ const history = async (req, res, next) => {
       date: result[i].date.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }),
       status: result[i].status,
       type: result[i].type,
-      photo: result[i].photo_sender,
+      photo: result[i].photo_receiver,
     }
   }
   // console.log(result[0].type)
