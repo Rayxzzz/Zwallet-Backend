@@ -13,7 +13,7 @@ const transferDetail = async (req, res, next) => {
   const user = await userModel.readAllUser2()
   const balance = result[0].balance
   const invoice = Math.floor(Math.random() * 99999)
-  const { amount, receiver, photo_receiver, message } = req.body
+  const { amount, receiver, photo_receiver, message, receiver_name } = req.body
   const data = {
     invoice: invoice,
     id_sender: decoded.userid,
@@ -23,6 +23,7 @@ const transferDetail = async (req, res, next) => {
     date: new Date(),
     type: 'Transfer',
     photo_receiver: photo_receiver,
+    receiver_name: receiver_name,
     message: message
   }
   console.log(data)
@@ -92,7 +93,7 @@ const history = async (req, res, next) => {
       date: result[i].date.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }),
       status: result[i].status,
       type: result[i].type,
-      photo: result[i].photo_sender
+      photo: result[i].photo_sender,
     }
   }
   // console.log(result[0].type)
