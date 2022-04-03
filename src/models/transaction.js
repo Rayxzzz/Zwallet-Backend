@@ -92,7 +92,7 @@ const getHistory = (id) => {
 
 const getHistorySuccess = (id) => {
   return new Promise((resolve, reject) => {
-    connection.query(`select photo_sender,invoice,id_sender,amount,date,status from transaction where receiver = ${id} AND status= 'success' order by date desc`, (error, results) => {
+    connection.query(`select photo_receiver,invoice,id_sender,amount,date,status from transaction where receiver = ${id} AND status= 'success' order by date desc`, (error, results) => {
       if (error) {
         reject(error)
       } else {
