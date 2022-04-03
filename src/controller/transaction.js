@@ -13,7 +13,7 @@ const transferDetail = async (req, res, next) => {
   const user = await userModel.readAllUser2()
   const balance = result[0].balance
   const invoice = Math.floor(Math.random() * 99999)
-  const { amount, receiver } = req.body
+  const { amount, receiver, photo_receiver, message } = req.body
   const data = {
     invoice: invoice,
     id_sender: decoded.userid,
@@ -21,7 +21,9 @@ const transferDetail = async (req, res, next) => {
     amount: amount,
     status: 'pending',
     date: new Date(),
-    photo_sender: decoded.photo
+    type: 'Transfer',
+    photo_receiver: photo_receiver,
+    message: message
   }
   console.log(data)
   const user_id = user.map(user => user.user_id)
